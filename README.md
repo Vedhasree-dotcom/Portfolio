@@ -1,4 +1,4 @@
-# Vedashree — Full-Stack Developer Portfolio
+# Vedhasree — Full-Stack Developer Portfolio
 
 A modern, responsive MERN portfolio designed to showcase a BCA graduate's MERN Stack + AI/ML skills, projects, certifications, and contact information.
 
