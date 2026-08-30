@@ -32,15 +32,13 @@ router.post("/", async (req, res) => {
         message: "Please enter a valid email.",
       });
     }
-
-    // Save message to MongoDB
+    
     await Message.create({
       name,
       email,
       message,
     });
 
-    // Send email notification
     await transporter.sendMail({
       from: `"Vedhashree Portfolio" <vedhasree1110@gmail.com>`,
       to: "vedhasree1110@gmail.com",
