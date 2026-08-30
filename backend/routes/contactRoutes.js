@@ -6,12 +6,12 @@ import Message from "../models/Message.js";
 const router = express.Router();
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
+  host: "smtp-relay.brevo.com",
   port: 587,
   secure: false,
   auth: {
-    user: process.env.EMAIL_USER?.trim(),
-    pass: process.env.EMAIL_PASS?.trim(),
+    user: process.env.BREVO_SMTP_USER?.trim(),
+    pass: process.env.BREVO_SMTP_KEY?.trim(),
   },
 });
 
@@ -42,8 +42,8 @@ router.post("/", async (req, res) => {
 
     // Send email notification
     await transporter.sendMail({
-      from: `"Vedashree Portfolio" <${process.env.EMAIL_USER.trim()}>`,
-      to: process.env.EMAIL_USER.trim(),
+      from: `"Vedhashree Portfolio" <vedhasree1110@gmail.com>`,
+      to: "vedhasree1110@gmail.com",
       replyTo: email,
       subject: `New Portfolio Message from ${name}`,
       text: `
