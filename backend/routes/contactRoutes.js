@@ -7,7 +7,7 @@ const router = express.Router();
 
 const transporter = nodemailer.createTransport({
   host: "smtp-relay.brevo.com",
-  port: 587,
+  port: 2525,
   secure: false,
   auth: {
     user: process.env.BREVO_SMTP_USER?.trim(),
@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
         message: "Please enter a valid email.",
       });
     }
-    
+
     await Message.create({
       name,
       email,
