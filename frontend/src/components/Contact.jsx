@@ -59,7 +59,7 @@ export default function Contact() {
       </form>
 
       <button
-        className="back-to-top"
+        className="contact-section back-to-top"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Back to top"
       >
