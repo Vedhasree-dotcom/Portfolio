@@ -57,6 +57,16 @@ export default function Contact() {
         <button className="btn primary" type="submit">Send Message ↗</button>
         {status && <p className="form-status">{status}</p>}
       </form>
+
+      <button
+        className="back-to-top"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Back to top"
+      >
+        ↑
+      </button>
     </section>
+
+    
   );
 }

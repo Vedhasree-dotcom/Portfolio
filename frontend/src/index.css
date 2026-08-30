@@ -132,6 +132,26 @@ input:focus, textarea:focus { border-color: var(--accent); }
 textarea { resize: vertical; }
 .form-status { color: var(--accent); font-size: 14px; }
 
+.back-to-top {
+  display: block;
+  margin: 40px auto 0;
+  width: 45px;
+  height: 45px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  background: transparent;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-to-top:hover {
+  transform: translateY(-4px);
+  background: white;
+  color: black;
+}
+
 .footer { max-width: 1120px; margin: auto; padding: 35px 28px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 13px; }
 .footer strong { color: white; font: 700 20px "Space Grotesk"; }
 
