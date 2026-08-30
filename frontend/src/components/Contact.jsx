@@ -97,28 +97,7 @@ export default function Contact() {
         {status && <p className="form-status">{status}</p>}
       </form>
 
-      <button
-          type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          style={{
-            position: "fixed",
-            right: "25px",
-            bottom: "25px",
-            zIndex: 9999,
-            width: "50px",
-            height: "50px",
-            borderRadius: "50%",
-            border: "2px solid #a7f36b",
-            background: "#121219",
-            color: "#a7f36b",
-            fontSize: "25px",
-            fontWeight: "bold",
-            cursor: "pointer",
-          }}
-          aria-label="Back to top"
-        >
-          ↑
-        </button>
+      
     </section>
   );
 }
