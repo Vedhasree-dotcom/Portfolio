@@ -153,3 +153,291 @@ textarea { resize: vertical; }
   .project-card { grid-template-columns: 1fr; padding: 24px; }
   h1 { letter-spacing: -2px; }
 }
+
+
+/* AI ASSISTANT */
+
+.ai-button {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 1000;
+
+  width: 58px;
+  height: 58px;
+
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+
+  background: var(--accent);
+  color: #0b0b0f;
+
+  font-size: 27px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 10px 35px rgba(167, 243, 107, 0.25);
+
+  transition: all 0.3s ease;
+}
+
+.ai-button:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 15px 45px rgba(167, 243, 107, 0.35);
+}
+
+.ai-button-open {
+  font-size: 32px;
+}
+
+
+
+.ai-chat {
+  position: fixed;
+  right: 28px;
+  bottom: 100px;
+  z-index: 999;
+
+  width: 370px;
+  max-width: calc(100vw - 40px);
+  height: 520px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #101015;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.55);
+
+  animation: aiChatOpen 0.25s ease;
+}
+
+@keyframes aiChatOpen {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+
+.ai-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px 20px;
+
+  background: #121219;
+  border-bottom: 1px solid var(--line);
+}
+
+.ai-header strong {
+  display: block;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 17px;
+}
+
+.ai-header span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.ai-close {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+
+  font-size: 25px;
+
+  cursor: pointer;
+
+  line-height: 1;
+}
+
+.ai-close:hover {
+  color: white;
+}
+
+
+.ai-messages {
+  flex: 1;
+
+  padding: 18px;
+
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ai-message {
+  max-width: 85%;
+
+  padding: 11px 14px;
+
+  border-radius: 14px;
+
+  font-size: 13px;
+  line-height: 1.6;
+
+  white-space: pre-wrap;
+}
+
+.ai-response {
+  align-self: flex-start;
+
+  background: #181820;
+  border: 1px solid var(--line);
+
+  color: #e7e7eb;
+
+  border-bottom-left-radius: 5px;
+}
+
+.ai-user {
+  align-self: flex-end;
+
+  background: var(--accent);
+  color: #0b0b0f;
+
+  border-bottom-right-radius: 5px;
+
+  font-weight: 500;
+}
+
+
+
+.ai-typing {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 14px 16px;
+}
+
+.ai-typing span {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: var(--muted);
+
+  animation: aiTyping 1.2s infinite ease-in-out;
+}
+
+.ai-typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.ai-typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes aiTyping {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+
+
+.ai-input-area {
+  display: flex;
+  gap: 8px;
+
+  padding: 12px;
+
+  background: #121219;
+  border-top: 1px solid var(--line);
+}
+
+.ai-input-area input {
+  flex: 1;
+
+  margin: 0;
+
+  padding: 11px 13px;
+
+  background: #181820;
+
+  border: 1px solid var(--line);
+  border-radius: 10px;
+
+  color: white;
+
+  outline: none;
+}
+
+.ai-input-area input:focus {
+  border-color: var(--accent);
+}
+
+.ai-input-area button {
+  width: 42px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: var(--accent);
+  color: #0b0b0f;
+
+  font-size: 21px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.ai-input-area button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+
+
+@media (max-width: 520px) {
+  .ai-button {
+    right: 18px;
+    bottom: 18px;
+
+    width: 54px;
+    height: 54px;
+  }
+
+  .ai-chat {
+    right: 15px;
+    bottom: 85px;
+
+    width: calc(100vw - 30px);
+    height: 70vh;
+    max-height: 520px;
+  }
+}
