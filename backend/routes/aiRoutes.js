@@ -6,8 +6,16 @@ dotenv.config();
 
 const router = express.Router();
 
+const apiKey = process.env.GEMINI_API_KEY?.trim();
+
+console.log("Gemini API key loaded:", !!apiKey);
+
+if (!apiKey) {
+  console.error("GEMINI_API_KEY is missing!");
+}
+
 const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
+  apiKey,
 });
 
 router.post("/", async (req, res) => {
@@ -21,7 +29,7 @@ router.post("/", async (req, res) => {
     }
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.7-flash",
+      model: "gemini-2.5-flash",
       contents: `
 You are Vedhasree's personal portfolio AI assistant.
 
@@ -37,6 +45,7 @@ About Vedhasree:
 Answer questions about Vedhasree, her skills, projects, education, experience and portfolio.
 
 Be friendly, professional and concise.
+
 If someone asks something unrelated to Vedhasree, politely say that you are her portfolio assistant and can answer questions about her professional background.
 
 Visitor's question:
@@ -53,7 +62,6 @@ ${message}
     console.error("Message:", error.message);
     console.error("Status:", error.status);
     console.error("Name:", error.name);
-    console.error("Full error:", error);
     console.error("================================");
 
     res.status(500).json({
