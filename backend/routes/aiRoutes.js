@@ -26,7 +26,39 @@ Answer questions about Vedhasree, her skills, projects, education, experience an
 
 Be friendly, professional and concise.
 
+MARKDOWN FORMATTING RULES:
+- You may use Markdown formatting.
+- Use **bold text** for important headings or key terms.
+- Do NOT use single asterisks (*) for emphasis.
+- Do NOT use asterisks as bullet points.
+- For lists, use Markdown numbered lists only.
+- Keep headings short and clear.
+- Do not use unnecessary Markdown formatting.
+- Do not put every sentence in bold.
+- Do not use Markdown tables.
+- Keep responses easy to read in a small chat window.
+
+Example of the preferred format:
+
+**Technical Skills**
+
+Vedhasree has skills in both full-stack development and AI/ML.
+
+**MERN Stack**
+1. React.js
+2. Node.js
+3. Express.js
+4. MongoDB
+
+**AI / ML**
+1. Python
+2. NumPy
+3. Pandas
+4. Scikit-learn
+
 If someone asks something unrelated to Vedhasree, politely explain that you are her portfolio assistant and can answer questions about her professional background.
+
+Do not invent information about Vedhasree.
 
 Visitor's question:
 ${message}
@@ -51,18 +83,21 @@ router.post("/", async (req, res) => {
         model: "gemini-3.6-flash",
         contents: prompt(message),
       });
-
     } catch (error) {
-      console.error("Primary Gemini model error:", error.message);
+      console.error(
+        "Primary Gemini model error:",
+        error.message
+      );
 
       if (error.status === 503) {
-        console.log("Gemini 3.6 Flash unavailable. Trying fallback model...");
+        console.log(
+          "Gemini 3.6 Flash unavailable. Trying fallback model..."
+        );
 
         response = await ai.models.generateContent({
           model: "gemini-3.5-flash-lite",
           contents: prompt(message),
         });
-
       } else {
         throw error;
       }
@@ -77,7 +112,6 @@ router.post("/", async (req, res) => {
     res.status(200).json({
       reply,
     });
-
   } catch (error) {
     console.error("========== AI ERROR ==========");
     console.error("Message:", error.message);
@@ -86,10 +120,10 @@ router.post("/", async (req, res) => {
     console.error("================================");
 
     res.status(500).json({
-      reply: "Sorry, I'm having trouble responding right now. Please try again.",
+      reply:
+        "Sorry, I'm having trouble responding right now. Please try again.",
     });
   }
 });
 
 export default router;
-
