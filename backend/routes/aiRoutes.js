@@ -10,19 +10,7 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
-router.post("/", async (req, res) => {
-  try {
-    const { message } = req.body;
-
-    if (!message) {
-      return res.status(400).json({
-        reply: "Please enter a message.",
-      });
-    }
-
-    const response = await ai.models.generateContent({
-      model: "gemini-3.7-flash",
-      contents: `
+const prompt = (message) => `
 You are Vedhasree's personal portfolio AI assistant.
 
 About Vedhasree:
@@ -37,15 +25,57 @@ About Vedhasree:
 Answer questions about Vedhasree, her skills, projects, education, experience and portfolio.
 
 Be friendly, professional and concise.
-If someone asks something unrelated to Vedhasree, politely say that you are her portfolio assistant and can answer questions about her professional background.
+
+If someone asks something unrelated to Vedhasree, politely explain that you are her portfolio assistant and can answer questions about her professional background.
 
 Visitor's question:
 ${message}
-      `,
-    });
+`;
 
-    res.json({
-      reply: response.text,
+router.post("/", async (req, res) => {
+  try {
+    const { message } = req.body;
+
+    if (!message || !message.trim()) {
+      return res.status(400).json({
+        reply: "Please enter a message.",
+      });
+    }
+
+    let response;
+
+    try {
+      console.log("Trying Gemini 3.6 Flash...");
+
+      response = await ai.models.generateContent({
+        model: "gemini-3.6-flash",
+        contents: prompt(message),
+      });
+
+    } catch (error) {
+      console.error("Primary Gemini model error:", error.message);
+
+      if (error.status === 503) {
+        console.log("Gemini 3.6 Flash unavailable. Trying fallback model...");
+
+        response = await ai.models.generateContent({
+          model: "gemini-3.5-flash-lite",
+          contents: prompt(message),
+        });
+
+      } else {
+        throw error;
+      }
+    }
+
+    const reply = response?.text?.trim();
+
+    if (!reply) {
+      throw new Error("Gemini returned an empty response.");
+    }
+
+    res.status(200).json({
+      reply,
     });
 
   } catch (error) {
@@ -53,13 +83,13 @@ ${message}
     console.error("Message:", error.message);
     console.error("Status:", error.status);
     console.error("Name:", error.name);
-    console.error("Full error:", error);
     console.error("================================");
 
     res.status(500).json({
-      reply: "Sorry, I'm having trouble responding right now.",
+      reply: "Sorry, I'm having trouble responding right now. Please try again.",
     });
   }
 });
 
 export default router;
+
