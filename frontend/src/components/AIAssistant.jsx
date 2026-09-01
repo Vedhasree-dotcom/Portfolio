@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 
 const API_URL =
   import.meta.env.VITE_API_URL || "http://localhost:5000/api";
@@ -94,7 +95,7 @@ export default function AIAssistant() {
                     : "ai-response"
                 }`}
               >
-                {message.text}
+                <ReactMarkdown>{message.text}</ReactMarkdown>
               </div>
             ))}
 
