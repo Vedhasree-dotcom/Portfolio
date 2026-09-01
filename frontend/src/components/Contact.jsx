@@ -1,24 +1,43 @@
 import { useState } from "react";
 import axios from "axios";
+import useScrollAnimation from "../hooks/useScrollAnimation";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
   const [status, setStatus] = useState("");
 
+  const sectionRef = useScrollAnimation();
+
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const submit = async (e) => {
     e.preventDefault();
+
     setStatus("Sending...");
 
     try {
       await axios.post(`${API_URL}/contact`, form);
+
       setStatus("Message sent successfully!");
-      setForm({ name: "", email: "", message: "" });
+
+      setForm({
+        name: "",
+        email: "",
+        message: "",
+      });
     } catch (error) {
       setStatus(
         error.response?.data?.message ||
@@ -27,10 +46,12 @@ export default function Contact() {
     }
   };
 
-  
-
   return (
-    <section id="contact" className="section contact-section">
+    <section
+      id="contact"
+      className="section contact-section scroll-reveal"
+      ref={sectionRef}
+    >
       <div className="section-heading">
         <p className="eyebrow">CONTACT</p>
 
@@ -61,7 +82,10 @@ export default function Contact() {
         </div>
       </div>
 
-      <form className="contact-form" onSubmit={submit}>
+      <form
+        className="contact-form"
+        onSubmit={submit}
+      >
         <div className="form-row">
           <input
             name="name"
@@ -90,14 +114,17 @@ export default function Contact() {
           required
         />
 
-        <button className="btn primary" type="submit">
+        <button
+          className="btn primary"
+          type="submit"
+        >
           Send Message ↗
         </button>
 
-        {status && <p className="form-status">{status}</p>}
+        {status && (
+          <p className="form-status">{status}</p>
+        )}
       </form>
-
-      
     </section>
   );
 }
