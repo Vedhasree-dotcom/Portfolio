@@ -44,8 +44,14 @@ ${message}
     res.json({
       reply: response.text,
     });
+
   } catch (error) {
-    console.error("AI Assistant error:", error);
+    console.error("========== AI ERROR ==========");
+    console.error("Message:", error.message);
+    console.error("Status:", error.status);
+    console.error("Name:", error.name);
+    console.error("Full error:", error);
+    console.error("================================");
 
     res.status(500).json({
       reply: "Sorry, I'm having trouble responding right now.",
