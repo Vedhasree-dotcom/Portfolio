@@ -53,7 +53,7 @@ http://localhost:5173
 
 ## Project structure
 ```
-vedashree-portfolio/
+vedhasree-portfolio/
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
